@@ -1,7 +1,7 @@
 
 
 def convert_meter_to_scale(input_meter, mm_to_foot):
-    output = input_meter / 3.28084 * mm_to_foot
+    output = input_meter * 3.28084 * mm_to_foot
     return output
 
 
@@ -52,6 +52,8 @@ def get_scale():
 
 
 if __name__ == '__main__':
+
+    print('Scale Converter - V0.1')
 
     scale = get_scale()
     input_type = input('Enter "m" for meters, "f" for foot and inches: ')
