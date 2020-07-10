@@ -6,35 +6,32 @@ def convert_meter_to_scale(input_meter, mm_to_foot):
 
 
 def convert_feet_to_scale(input_feet, mm_to_foot):
-    input_feet = str(input_feet)
-    input_feet_split = input_feet.split(' ')
-    if ' ' in input_feet and len(input_feet_split) > 1:
-        parsed_feet = parse_fraction(input_feet_split[0])
-        parsed_inches = parse_fraction(input_feet_split[1])
 
-        try:
-            fraction = input_feet_split[2]
-
-            if '/' in str(fraction):
-                parsed_fraction = int(fraction.split('/')[0]) / int(fraction.split('/')[1])
+    if ' ' in str(input_feet):
+        input_split = input_feet.split(' ')
+        if len(input_split) < 3:
+            feet_and_inches = float(parse_fraction(input_split[0])) + (float(parse_fraction(input_split[1])) / 12)
+        else:
+            if '/' in input_split[2]:
+                feet_and_inches = float(parse_fraction(input_split[0])) + ((float(parse_fraction(input_split[1])) +
+                                                                            (float(parse_fraction(input_split[2]))))
+                                                                           / 12)
             else:
-                parsed_fraction = 1 / int(fraction)
+                print('WARNING: Last column not a fraction')
+                feet_and_inches = float(parse_fraction(input_split[0])) + (float(parse_fraction(input_split[1])) / 12)
 
-            feet_and_inches = int(parsed_feet) + ((int(parsed_inches) / 12) + (1 / int(parsed_fraction)))
-        except IndexError:
-            feet_and_inches = int(parsed_feet) + (int(parsed_inches) / 12)
-
-    elif '/' in input_feet:
-        feet_and_inches = parse_fraction(input_feet)
+    elif ' ' not in str(input_feet):
+        feet_and_inches = float(parse_fraction(input_feet))
     else:
-        feet_and_inches = int(input_feet)
+        print('ERROR: Enter vaild options in each column')
 
     output = feet_and_inches * mm_to_foot
+
     return output
 
 
 def parse_fraction(input_fraction):
-    if '/' in input_fraction:
+    if '/' in str(input_fraction):
         decimal = int(input_fraction.split('/')[0]) / int(input_fraction.split('/')[1])
     else:
         decimal = input_fraction
@@ -70,9 +67,9 @@ if __name__ == '__main__':
         try:
 
             if input_type in ['m', 'meters']:
-                mm = round(convert_meter_to_scale(float(real_input), scale), 1)
+                mm = round(convert_meter_to_scale(float(real_input), scale), 2)
             elif input_type in ['f', 'feet']:
-                mm = round(convert_feet_to_scale(real_input, scale), 1)
+                mm = round(convert_feet_to_scale(real_input, scale), 2)
             print(f'-> {mm}mm')
         except ValueError:
             print("ERROR: Please enter a number")
