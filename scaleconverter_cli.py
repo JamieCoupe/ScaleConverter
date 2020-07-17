@@ -1,5 +1,4 @@
 
-
 def convert_meter_to_scale(input_meter, mm_to_foot):
     output = input_meter * 3.28084 * mm_to_foot
     return output
