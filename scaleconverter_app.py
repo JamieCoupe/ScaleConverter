@@ -80,7 +80,7 @@ class ScaleConverter(QDialog):
         elif len(self.meters_in.text())  > 0 :
             result = sccli.convert_meter_to_scale(float(self.meters_in.text()), scale)
 
-        self.measurement_out.setText(str(round(result, 2)))
+        self.measurement_out.setText(f'{str(round(result, 2))}mm')
 
 
 if __name__ == '__main__':
