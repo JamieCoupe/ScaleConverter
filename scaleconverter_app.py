@@ -22,7 +22,7 @@ class ScaleConverter(QDialog):
         self.create_input_group()
         self.create_output_group()
         self.scale_selector = QComboBox()
-        self.scale_selector.addItems(['N', 'OO'])
+        self.scale_selector.addItems(['N', 'OO', "3 1/2 Inch", "5 Inch", "7 1/4 Inch"])
         windowLayout = QVBoxLayout()
         windowLayout.addWidget(QLabel('Scale:'))
         windowLayout.addWidget(self.scale_selector)
@@ -33,13 +33,13 @@ class ScaleConverter(QDialog):
         self.show()
 
     def create_input_group(self):
-        self.inputGroupBox = QGroupBox("Input")
+        self.inputGroupBox = QGroupBox("Real Input")
         layout = QHBoxLayout()
 
         self.meters_in = QLineEdit()
-        self.feet_in = QLineEdit()
-        self.inches_in = QLineEdit()
-        self.fractions_in = QLineEdit()
+        self.feet_in = QLineEdit('0')
+        self.inches_in = QLineEdit('0')
+        self.fractions_in = QLineEdit('0')
 
         layout.addWidget(QLabel('Meters'))
         layout.addWidget(self.meters_in)
@@ -53,7 +53,7 @@ class ScaleConverter(QDialog):
         self.inputGroupBox.setLayout(layout)
 
     def create_output_group(self):
-        self.outputGroupBox = QGroupBox("Output")
+        self.outputGroupBox = QGroupBox("Scale Output")
         layout = QHBoxLayout()
 
         self.measurement_out = QLineEdit()
@@ -68,10 +68,17 @@ class ScaleConverter(QDialog):
     @pyqtSlot()
     def convert_click(self):
         scale = 0
-        if self.scale_selector.currentText() in ['N']:
+        scale_selector = self.scale_selector.currentText()
+        if scale_selector in ['N']:
             scale = 2
-        elif self.scale_selector.currentText() in ['OO']:
+        elif scale_selector in ['OO']:
             scale = 4
+        elif scale_selector in ['3 1/2 Inch']:
+            scale = 19.05
+        elif scale_selector in ['5 Inch']:
+            scale = 26.98
+        elif scale_selector in ['7 1/4 Inch']:
+            scale = 38.1
 
         total_feet = f'{self.feet_in.text()} {self.inches_in.text()} {self.fractions_in.text()}'
 
