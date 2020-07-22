@@ -77,7 +77,7 @@ class ScaleConverter(QDialog):
 
         if self.meters_in.text() in [None, ''] and total_feet not in ['  ']:
             result = sccli.convert_feet_to_scale(total_feet, scale)
-        elif len(self.meters_in.text())  > 0 :
+        elif len(self.meters_in.text()) > 0:
             result = sccli.convert_meter_to_scale(float(self.meters_in.text()), scale)
 
         self.measurement_out.setText(f'{str(round(result, 2))}mm')
