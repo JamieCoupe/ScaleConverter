@@ -22,7 +22,7 @@ class ScaleConverter(QDialog):
         self.create_input_group()
         self.create_output_group()
         self.scale_selector = QComboBox()
-        self.scale_selector.addItems(['N', 'OO', "3 1/2 Inch", "5 Inch", "7 1/4 Inch"])
+        self.scale_selector.addItems(['N', 'OO', 'cg3', "3 1/2 Inch", "5 Inch", "7 1/4 Inch"])
         windowLayout = QVBoxLayout()
         windowLayout.addWidget(QLabel('Scale:'))
         windowLayout.addWidget(self.scale_selector)
@@ -79,6 +79,8 @@ class ScaleConverter(QDialog):
             scale = 26.98
         elif scale_selector in ['7 1/4 Inch']:
             scale = 38.1
+        elif scale_selector in ['cg3']:
+            scale = 18.14
 
         total_feet = f'{self.feet_in.text()} {self.inches_in.text()} {self.fractions_in.text()}'
 
